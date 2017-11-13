@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System.Linq;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,6 +16,7 @@ namespace Mobilize.ChalkServices.MobileAppService.Helpers
         {
             var matchups = new ConcurrentDictionary<string, Matchup>();
             var schedule = await GetNflSchedule(year, season, week);
+            //var standings = await StandingsHelper.GetNflStandings(year);
             return HydrateNflMatchups(matchups, schedule);
         }
 
@@ -38,8 +40,21 @@ namespace Mobilize.ChalkServices.MobileAppService.Helpers
         {
             if (schedule != null)
             {
+
                 foreach (NflWeeklyScheduleGame game in schedule.week.games)
                 {
+                    //var home = (from c in standings.conferences
+                    //            from d in c.divisions
+                    //            from t in d.teams
+                    //            where t.id.Equals(game.home.id)
+                    //            select t).First();
+
+                    //var away = (from c in standings.conferences
+                               //from d in c.divisions
+                               //from t in d.teams
+                               //where t.id.Equals(game.away.id)
+                                //select t).First();
+
                     var matchup = new Matchup
                     {
                         Id = game.id,
@@ -48,12 +63,18 @@ namespace Mobilize.ChalkServices.MobileAppService.Helpers
                         VenueName = game.venue.name,
                         VenueLocation = string.Format("{0}, {1}", game.venue.city, game.venue.state),
                         VenueOutdoor = game.venue.roof_type.Equals(Constants.KeyOutdoor),
-                        WeatherSynopsis = string.Empty,
+                        WeatherSynopsis = game.weather,
                         BroadcastNetwork = game.broadcast.network,
                         HomeTeamId = game.home.alias,
                         HomeTeamName = game.home.name,
+                        //HomeTeamWins = home.wins,
+                        //HomeTeamLosses = home.losses,
+                        //HomeTeamTies = home.ties,
                         AwayTeamId = game.away.alias,
-                        AwayTeamName = game.away.name
+                        AwayTeamName = game.away.name,
+                        //AwayTeamWins = away.wins,
+                        //AwayTeamLosses = away.losses,
+                        //AwayTeamTies = away.ties
                     };
 
                     matchups.TryAdd(matchup.Id, matchup);

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Mobilize.ChalkServices.MobileAppService.Helpers;
 using Mobilize.ChalkServices.MobileAppService.Models.SportsRadar;
 
-namespace Mobilize.ChalkServices.Controllers
+namespace Mobilize.ChalkServices.MobileAppService.Controllers
 {
     [Route("/nfl")]
     public class NFLController : Controller
