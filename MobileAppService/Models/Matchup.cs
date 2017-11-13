@@ -10,8 +10,8 @@ namespace Mobilize.ChalkServices.MobileAppService.Models
         public string VenueName { get; set; }
         public string VenueLocation { get; set; }
         public bool VenueOutdoor { get; set; }
-		public string WeatherSynopsis { get; set; }
-		public string BroadcastNetwork { get; set; }
+        public string WeatherSynopsis { get; set; }
+        public string BroadcastNetwork { get; set; }
 
         public string HomeTeamId { get; set; }
         public string HomeTeamName { get; set; }
