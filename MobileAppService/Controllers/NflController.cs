@@ -7,10 +7,11 @@ using Mobilize.ChalkServices.MobileAppService.Models.SportsRadar;
 
 namespace Mobilize.ChalkServices.Controllers
 {
-    [Route("api/[controller]")]
-    public class MatchupNflController : Controller
+    [Route("/nfl")]
+    public class NFLController : Controller
     {
-        [HttpGet("{Week}")]
+        [Route("schedule/{week}")]
+        [HttpGet]
         public async Task<IActionResult> GetSchedule(int week)
         {
             int year = DateTime.Now.Year;
@@ -19,7 +20,8 @@ namespace Mobilize.ChalkServices.Controllers
             return Ok(schedule.Values);
         }
 
-        [HttpGet("{GameId}")]
+        [Route("score/{gameId}")]
+        [HttpGet]
         public async Task<IActionResult> GetScore(string gameId)
         {
             var score = await MatchupHelper.GetNflScore(gameId);
