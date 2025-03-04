@@ -16,7 +16,6 @@ namespace Mobilize.ChalkServices.MobileAppService.Helpers
         {
             var matchups = new ConcurrentDictionary<string, Matchup>();
             var schedule = await GetNflSchedule(year, season, week);
-            //var standings = await StandingsHelper.GetNflStandings(year);
             return HydrateNflMatchups(matchups, schedule);
         }
 
